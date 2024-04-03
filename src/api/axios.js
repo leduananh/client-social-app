@@ -6,8 +6,8 @@ import APP_CONFIG from "../config/appConfig";
 import apiLogin from "./login";
 
 const axiosInstance = axios.create({
-    baseURL: process.env.BACK_END_BASE_URL || 'localhost:8080',
-    timeout: process.env.REQUEST_HTTP_TIMEOUT || 10000,
+    baseURL: import.meta.env.VITE_BACK_END_BASE_URL || 'localhost:8080',
+    timeout: import.meta.env.VITE_REQUEST_HTTP_TIMEOUT || 10000,
 });
 
 axiosInstance.interceptors.request.use(function (config) {
