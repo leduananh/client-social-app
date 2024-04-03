@@ -2,12 +2,29 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import './styles.scss';
+import apiLogin from '../../api/login';
+import APP_CONFIG from '../../config/appConfig';
 
 const Login = () => {
     const navigate = useNavigate();
-    const onSubmit = (values) => {
-        console.log('Success:', values);
+
+    const onSubmit = async (values) => {
+        try {
+            const { email, password } = values
+            const { accessToken, refreshToken, userName } = await apiLogin.login({ email, password })
+            //    đoạn code set token vào local storage sẽ handle ở bên view
+            if (accessToken && refreshToken) {
+                localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.ACCESS_TOKEN, accessToken)
+                localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN, refreshToken)
+                navigate('/home')
+            } else {
+                navigate('/auth/login')
+            }
+        } catch (err) {
+            navigate('/auth/login')
+        }
     };
+
     return (
         <div className="container-form-login">
             <h1>Social app MindX Fullstack</h1>
