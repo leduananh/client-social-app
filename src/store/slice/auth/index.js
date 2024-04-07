@@ -30,4 +30,4 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { login, logout } = counterSlice.actions
 
-export default counterSlice.reducer
+export const reducer = counterSlice.reducer

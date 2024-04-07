@@ -11,17 +11,26 @@ import './App.scss';
 import { ProtectedRoute } from './protected';
 import userService from './service/auth';
 import APP_CONFIG from './config/appConfig';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from './store/slice/auth';
 
 function App() {
+  // tại line code này thì là app mình bắt đầu load components
+  // kiểm tra coi user đã login chưa
   const dispatch = useDispatch();
+  const { isAuth } = useSelector((state => state.auth));
+
+  // dispatch lại trang thái login trước khi toàn bộ APP components load
+
   useEffect(() => {
     (async () => {
-      if (localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)) {
-        const { accessToken, userInfo } = await userService.renewAccessToken(localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN))
-        dispatch(login({ accessToken, userInfo }))
+      if (!isAuth) {
+        if (localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)) {
+          const { accessToken, userInfo } = await userService.renewAccessToken(localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN))
+          dispatch(login({ accessToken, userInfo }))
+        }
       }
+
     })()
   }, [])
 

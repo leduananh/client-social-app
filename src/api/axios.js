@@ -3,7 +3,7 @@
 
 import axios from "axios";
 import APP_CONFIG from "../config/appConfig";
-import apiAuth from "./login";
+import apiAuth from "./auth";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACK_END_BASE_URL || 'localhost:8080',
