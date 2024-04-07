@@ -3,7 +3,7 @@ import API_CONFIG from "../config"
 
 const BASE_PATH = '/api/' + API_CONFIG.API_VERSION + API_CONFIG.RESOURCES.USER;
 
-const apiLogin = {
+const apiAuth = {
     login: async (payloadLogin) => {
         // dùng axios để bắn request login và nhận lại response
        const {data} = await axiosInstance.post(BASE_PATH + '/sign-in', payloadLogin)
@@ -25,4 +25,4 @@ const apiLogin = {
        }
     }
 }
-export default apiLogin
+export default apiAuth

@@ -6,7 +6,7 @@ const BASE_PATH = '/api/' + API_CONFIG.API_VERSION + API_CONFIG.RESOURCES.POST;
 const apiPost = {
     getAllPost: async () => {
         // dùng axios để bắn request login và nhận lại response
-        const { data } = await axiosInstance.get(BASE_PATH + '/posts')
+        const { data } = await axiosInstance.get(BASE_PATH)
 
         if (data) {
             return data

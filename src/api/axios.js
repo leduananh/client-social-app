@@ -3,7 +3,7 @@
 
 import axios from "axios";
 import APP_CONFIG from "../config/appConfig";
-import apiLogin from "./login";
+import apiAuth from "./login";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACK_END_BASE_URL || 'localhost:8080',
@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(function (response) {
 
         if (refreshToken) {
             try {
-                const { accessToken } = await apiLogin.renewAccessToken({ refreshToken })
+                const { accessToken } = await apiAuth.renewAccessToken({ refreshToken })
                 localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.ACCESS_TOKEN, accessToken)
             } catch (error) {
                 localStorage.removeItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)

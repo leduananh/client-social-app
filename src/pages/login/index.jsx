@@ -2,20 +2,32 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
 import './styles.scss';
-import apiLogin from '../../api/login';
 import APP_CONFIG from '../../config/appConfig';
+import { useSelector, useDispatch } from 'react-redux'
+import userService from '../../service/auth';
+import { login } from '../../store/slice/auth';
 
 const Login = () => {
+    const { isAuth, userInfo } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
+    if (isAuth) {
+        navigate('/home')
+    }
+
     const onSubmit = async (values) => {
+
         try {
             const { email, password } = values
-            const { accessToken, refreshToken, userName } = await apiLogin.login({ email, password })
+
+            const { accessToken, refreshToken, userInfo } = await userService.login(email, password)
+
             //    đoạn code set token vào local storage sẽ handle ở bên view
             if (accessToken && refreshToken) {
-                localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.ACCESS_TOKEN, accessToken)
+                // localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.ACCESS_TOKEN, accessToken)
                 localStorage.setItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN, refreshToken)
+                dispatch(login({ accessToken, userInfo }))
                 navigate('/home')
             } else {
                 navigate('/auth/login')
