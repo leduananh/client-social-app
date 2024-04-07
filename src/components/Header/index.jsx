@@ -6,9 +6,13 @@ import HomeIcon from '../HomeIcon';
 import PersonalIcon from '../PersonalIcon';
 import AccountIcon from '../AccountIcon';
 import './styles.scss';
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../../store/slice/auth';
 
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { isLogin } = useSelector(state => state.auth)
     return (
         <div className="page-header">
             <div className="logo">
@@ -34,12 +38,22 @@ const Header = () => {
                         <AccountIcon className="icon-header" />
                     </NavLink>
                 </li>
+
+                {!isLogin && <li>
+                    <NavLink to={'/auth/login'}>
+                        <span className="title">Đăng nhập</span>
+                        <AccountIcon className="icon-header" />
+                    </NavLink>
+                </li>}
+
             </ul>
-            <Button onClick={() => {
+            {isLogin && <Button onClick={() => {
+                dispatch(logout());
                 navigate('/auth/login');
             }}>
                 Đăng xuất
-            </Button>
+            </Button>}
+
         </div>
     )
 }

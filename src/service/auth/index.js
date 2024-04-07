@@ -3,6 +3,8 @@ import apiUser from "../../api/user";
 
 const userService = {
     login: async (loginPayload) => {
+        // uncomment code ở dưới để gọi api backend
+
         // try {
         //     const { accessToken, refreshToken, userId } = await apiAuth.login(loginPayload)
         //     //    đoạn code set token vào local storage sẽ handle ở bên view
@@ -26,6 +28,8 @@ const userService = {
         }
     },
     renewAccessToken: async (refreshToken) => {
+        // uncomment code ở dưới để gọi api backend
+
         // const { accessToken, userId } = await apiAuth.renewAccessToken({ refreshToken })
         // if (!accessToken && !userId) {
         //     throw new Error('Data was empty')

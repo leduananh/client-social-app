@@ -18,13 +18,13 @@ function App() {
   // tại line code này thì là app mình bắt đầu load components
   // kiểm tra coi user đã login chưa
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state => state.auth));
+  const { isLogin } = useSelector((state => state.auth));
 
   // dispatch lại trang thái login trước khi toàn bộ APP components load
 
   useEffect(() => {
     (async () => {
-      if (!isAuth) {
+      if (isLogin === false) {
         if (localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)) {
           const { accessToken, userInfo } = await userService.renewAccessToken(localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN))
           dispatch(login({ accessToken, userInfo }))
