@@ -4,7 +4,7 @@ import { Button, Form, Input } from 'antd';
 import './styles.scss';
 import APP_CONFIG from '../../config/appConfig';
 import { useSelector, useDispatch } from 'react-redux'
-import userService from '../../service/auth';
+import authService from '../../service/auth';
 import { login } from '../../store/slice/auth';
 import { Navigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const Login = () => {
         try {
             const { email, password } = values
 
-            const { accessToken, refreshToken, userInfo } = await userService.login(email, password)
+            const { accessToken, refreshToken, userInfo } = await authService.login(email, password)
 
             //    đoạn code set token vào local storage sẽ handle ở bên view
             if (accessToken && refreshToken) {

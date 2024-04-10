@@ -1,7 +1,7 @@
 import apiAuth from "../../api/auth";
 import apiUser from "../../api/user";
 
-const userService = {
+const authService = {
     login: async (loginPayload) => {
         // uncomment code ở dưới để gọi api backend
 
@@ -48,4 +48,4 @@ const userService = {
     }
 }
 
-export default userService
+export default authService

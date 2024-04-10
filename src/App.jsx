@@ -9,7 +9,7 @@ import Personal from './pages/personal';
 import Account from './pages/account';
 import './App.scss';
 import { ProtectedRoute } from './protected';
-import userService from './service/auth';
+import authService from './service/auth';
 import APP_CONFIG from './config/appConfig';
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from './store/slice/auth';
@@ -26,7 +26,7 @@ function App() {
     (async () => {
       if (isLogin === false) {
         if (localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)) {
-          const { accessToken, userInfo } = await userService.renewAccessToken(localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN))
+          const { accessToken, userInfo } = await authService.renewAccessToken(localStorage.getItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN))
           dispatch(login({ accessToken, userInfo }))
         }
       }
