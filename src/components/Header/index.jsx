@@ -8,6 +8,7 @@ import AccountIcon from '../AccountIcon';
 import './styles.scss';
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../store/slice/auth';
+import APP_CONFIG from '../../config/appConfig';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ const Header = () => {
             </ul>
             {isLogin && <Button onClick={() => {
                 dispatch(logout());
+                localStorage.removeItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN)
                 navigate('/auth/login');
             }}>
                 Đăng xuất
